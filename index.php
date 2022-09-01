@@ -1,12 +1,10 @@
 <?php
  require  __DIR__. '/vendor/autoload.php';
 
- use \App\Controller\Pages\Sobre;
-
- 
- use \App\Controller\Pages\Home;
+ //use \App\Controller\Pages\Sobre;
+ //use \App\Controller\Pages\Home;
  use \App\Http\Router;
- use \App\Http\Response;
+ // use \App\Http\Response;
  use \App\Utils\View;
 
 
@@ -19,18 +17,8 @@
  
  $obRouter = new Router(URL);
 
+include __DIR__. '/routes/pages.php';
 
- $obRouter->get('/', [
-    function(){
-    return  new Response(200, Home::getHome());
-    }
-]);
-
-$obRouter->get('/sobre', [
-    function(){
-    return  new Response(200, Sobre::getSobre());
-    }
-]);
 // echo '<pre>';
 // print_r($obRouter);
 // exit;
