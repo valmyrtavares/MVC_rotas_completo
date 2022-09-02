@@ -13,3 +13,9 @@ $obRouter->get('/sobre', [
     return  new Response(200, Pages\Sobre::getSobre());
     }
 ]);
+
+$obRouter->get('/depoimento', [
+    function(){
+    return  new Response(200, Pages\Depoimentos::getDepoimentos());
+    }
+]);
