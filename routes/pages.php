@@ -19,3 +19,9 @@ $obRouter->get('/depoimento', [
     return  new Response(200, Pages\Depoimentos::getDepoimentos());
     }
 ]);
+
+$obRouter->post('/depoimento', [
+    function($request){   
+    return  new Response(200, Pages\Depoimentos::insertDepoimentos($request));
+    }
+]);

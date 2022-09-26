@@ -41,6 +41,6 @@ class Request
     }
     public function getPostVars()
     {
-        return $this->PostVars;
+        return $this->postVars;
     }
 }

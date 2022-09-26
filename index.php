@@ -1,16 +1,8 @@
 <?php
- require  __DIR__. '/vendor/autoload.php';
 
- use \App\Http\Router;
- use \App\Utils\View;
- use \App\Common\Environment;
- 
-Environment::load(__DIR__);
-define('URL',getenv('URL'));
+require __DIR__. '/includes/app.php';
 
- View::init([
-    'URL' => URL
- ]);
+use \App\Http\Router;
  
   $obRouter = new Router(URL);
 
