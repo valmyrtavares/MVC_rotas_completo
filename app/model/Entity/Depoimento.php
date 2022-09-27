@@ -17,8 +17,10 @@ class Depoimento{
             'mensagem' => $this->mensagem,
             'data' => $this->data
         ]);
-        echo "<pre>";
-        print_r($this);
-        exit;
+      return true;
+    }
+
+    public static function  getDepoimentos($where = null, $order = null, $limit = null, $fields = '*'){
+
     }
 }

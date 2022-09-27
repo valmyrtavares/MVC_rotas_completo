@@ -7,11 +7,18 @@ use  \App\Model\Entity\Depoimento;
 
 class Depoimentos extends Page
 {
+
+    private static function getDepoimentoItens(){
+        $itens = '';
+        $results = Depoimento::getDepoimentos();
+        return $itens;
+    }
+
     public static function getDepoimentos(){
 
         
         $content = View::render("page/depoimentos",[
-         
+         'itens' => self::getDepoimentoItens()
 
         ]);
         return parent::getPage('Depoimentos', $content);
