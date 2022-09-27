@@ -21,6 +21,6 @@ class Depoimento{
     }
 
     public static function  getDepoimentos($where = null, $order = null, $limit = null, $fields = '*'){
-
+        return (new Database('depoimentos'))-> select($where, $order, $limit, $fields);
     }
 }

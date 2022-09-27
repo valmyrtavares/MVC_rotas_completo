@@ -10,20 +10,28 @@ class Depoimentos extends Page
 
     private static function getDepoimentoItens(){
         $itens = '';
-        $results = Depoimento::getDepoimentos();
+        $results = Depoimento::getDepoimentos(null, 'id DESC');
+
+        //RENDERIZA ITEM
+        while($obDepoimento = $results->fetchObject(Depoimento::class)){
+            $itens .= View::render("page/depoimento/item",[
+                'nome' => $obDepoimento->nome,
+                'mensagem' => $obDepoimento->mensagem,
+                'data' => date('d/m/Y H:i:s', strtotime($obDepoimento->data))
+            ]);
+        }
+
         return $itens;
     }
 
     public static function getDepoimentos(){
-
-        
         $content = View::render("page/depoimentos",[
          'itens' => self::getDepoimentoItens()
-
         ]);
         return parent::getPage('Depoimentos', $content);
 
     }
+    
 //Cadastra um novo depoimento
     public static function insertDepoimentos($request){
         $postVars = $request->getPostVars();
