@@ -3,14 +3,28 @@
 namespace App\Controller\Pages;
 use  \App\Utils\View;
 use  \App\Model\Entity\Depoimento;
+use \App\Paginando\Pagination;
 
 
 class Depoimentos extends Page
 {
 
-    private static function getDepoimentoItens(){
+    private static function getDepoimentoItens($request){
         $itens = '';
-        $results = Depoimento::getDepoimentos(null, 'id DESC');
+
+        //QUANTIDADE TOTAL DE REGISTRO
+        $quantidadetotal = Depoimento::getDepoimentos(null,null, null,' COUNT(*) as qtd ')->fetchObject()->qtd;
+
+      //PAGINA ATUAL CHMANDO O GETQUERYPARAMS
+
+      $queryParams = $request->getQueryParams();
+      $paginaAtual = $queryParams['page'] ?? 1;
+
+      //INSTANCIA DE PÁGINAÇÃO
+      $obPagination = new Pagination($quantidadetotal, $paginaAtual, 1); 
+    
+
+        $results = Depoimento::getDepoimentos(null, 'id DESC', $obPagination->getLimit() );
 
         //RENDERIZA ITEM
         while($obDepoimento = $results->fetchObject(Depoimento::class)){
@@ -24,9 +38,11 @@ class Depoimentos extends Page
         return $itens;
     }
 
-    public static function getDepoimentos(){
+     public static function getDepoimentos($request){
         $content = View::render("page/depoimentos",[
-         'itens' => self::getDepoimentoItens()
+         'itens' => self::getDepoimentoItens($request)
+
+
         ]);
         return parent::getPage('Depoimentos', $content);
 
@@ -40,6 +56,7 @@ class Depoimentos extends Page
        $obDepoimento->nome = $postVars['nome'];
        $obDepoimento->mensagem = $postVars['mensagem'];
        $obDepoimento->cadastrar();
-        return self::getDepoimentos();
+       //Retorna a página de listagem de pepoimentos
+        return self::getDepoimentos($request);
     }
 }
