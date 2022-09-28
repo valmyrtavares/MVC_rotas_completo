@@ -9,7 +9,7 @@ use \App\Paginando\Pagination;
 class Depoimentos extends Page
 {
 
-    private static function getDepoimentoItens($request){
+    private static function getDepoimentoItens($request, &$obPagination){//referencia de momória pesquisar
         $itens = '';
 
         //QUANTIDADE TOTAL DE REGISTRO
@@ -21,7 +21,7 @@ class Depoimentos extends Page
       $paginaAtual = $queryParams['page'] ?? 1;
 
       //INSTANCIA DE PÁGINAÇÃO
-      $obPagination = new Pagination($quantidadetotal, $paginaAtual, 1); 
+      $obPagination = new Pagination($quantidadetotal, $paginaAtual, 4); 
     
 
         $results = Depoimento::getDepoimentos(null, 'id DESC', $obPagination->getLimit() );
@@ -40,7 +40,8 @@ class Depoimentos extends Page
 
      public static function getDepoimentos($request){
         $content = View::render("page/depoimentos",[
-         'itens' => self::getDepoimentoItens($request)
+         'itens' => self::getDepoimentoItens($request, $obPagination),
+         'pagination' => parent::getPagination($request,$obPagination)
 
 
         ]);

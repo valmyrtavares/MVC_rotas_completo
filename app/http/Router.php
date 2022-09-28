@@ -150,6 +150,10 @@ class Router{
             return new Response($e->getCode(), $e->getMessage());
         }
     }
+    //Método responsável por retornar a nossa url atual
+    public function getCurrentUrl(){
+        return $this->url.$this->getUri();
+    }
 
 
 }
