@@ -34,13 +34,13 @@ class Page{
              $link = $url. '?' .http_build_query($queryParams);
 
            //VIEW
-           $links .= View::render('pages/pagination/link',[
+           $links .= View::render('page/pagination/link',[
             'page' => $page['page'],
             'link' => $link,
             'active' => $page['current'] ? 'active' : ''
            ]);
         }
-        return $link .= View::render('pages/pagination/box',[
+        return $link .= View::render('page/pagination/box',[
             'links' => $links
            ]);
     }
